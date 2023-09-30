@@ -1,7 +1,9 @@
-package ismael.rosas.api.todolist.models;
+package ismael.rosas.api.todolist.models.task;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import ismael.rosas.api.todolist.models.Base;
+import ismael.rosas.api.todolist.models.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

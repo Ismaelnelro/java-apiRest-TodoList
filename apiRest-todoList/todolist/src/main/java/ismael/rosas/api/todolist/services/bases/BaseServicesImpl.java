@@ -1,7 +1,13 @@
 package ismael.rosas.api.todolist.services.bases;
 
 import ismael.rosas.api.todolist.models.Base;
+import ismael.rosas.api.todolist.models.task.MapperTask;
+import ismael.rosas.api.todolist.models.task.ResponseTask;
+import ismael.rosas.api.todolist.models.task.Task;
+import ismael.rosas.api.todolist.models.user.ResponseUser;
+import ismael.rosas.api.todolist.models.user.User;
 import ismael.rosas.api.todolist.repository.base.BaseRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,22 +19,20 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class BaseServicesImpl<E extends Base, ID extends Serializable> implements BaseServices<E, ID> {
-
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
-    protected BaseRepository<E,ID> baseRepository;
+    protected BaseRepository<E, ID> baseRepository;
 
-    protected BaseServicesImpl(BaseRepository<E,ID> baseRepository) {
+    protected BaseServicesImpl(BaseRepository<E, ID> baseRepository) {
         this.baseRepository = baseRepository;
     }
 
     @Override
     @Transactional
-    public List<E> save(E entity) throws Exception {
-        List<E> listEntities = new ArrayList<>();
+    public E save(E entity) throws Exception {
         try {
-            listEntities.add((E) baseRepository.save(entity));
-            return listEntities;
+           return baseRepository.save(entity);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -88,8 +92,8 @@ public abstract class BaseServicesImpl<E extends Base, ID extends Serializable> 
             if (baseRepository.existsById(id)) {
                 baseRepository.deleteById(id);
                 return true;
-            }else {
-                throw  new Exception("Error while deleting entity");
+            } else {
+                throw new Exception("Error while deleting entity");
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());

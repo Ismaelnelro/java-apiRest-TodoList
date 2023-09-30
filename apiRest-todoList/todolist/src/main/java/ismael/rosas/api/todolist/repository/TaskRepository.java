@@ -1,7 +1,7 @@
 package ismael.rosas.api.todolist.repository;
 
 
-import ismael.rosas.api.todolist.models.Task;
+import ismael.rosas.api.todolist.models.task.Task;
 import ismael.rosas.api.todolist.repository.base.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
